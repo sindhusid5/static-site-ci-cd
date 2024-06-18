@@ -1,0 +1,81 @@
+
+name: Deploy to GCP
+
+on:
+  push:
+    branches:
+      - development
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.14.0
+
+      - name: Install dependencies
+        run: |
+          cd samples/counter-app
+          npm install
+
+      - name: Build project
+        run: |
+          cd samples/counter-app
+          npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: samples/counter-app/build/
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: samples/counter-app/build/
+
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: "${{ secrets.GCP_KEY }}"
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Deploy to GCP
+        run: |
+          gsutil -m rsync -r samples/counter-app/build gs://<your-gcp-bucket-name>
+          gsutil iam ch allUsers:objectViewer gs://<your-gcp-bucket-name>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
