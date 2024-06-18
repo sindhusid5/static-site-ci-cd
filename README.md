@@ -33,11 +33,13 @@ This workflow runs on every push to the `develop` branch. It builds the static s
 
 To securely use sensitive information like AWS and GCP credentials, add the following secrets in your GitHub repository settings:
 
-- `SINDHU_AWS_ACCESS_KEY_ID`: Your AWS Access Key ID.
-- `SINDHU_AWS_SECRET_KEY`: Your AWS Secret Access Key.
+- `AWS_ACCESS_KEY_ID`: Your AWS Access Key ID.
+- `AWS_SECRET_ACCESS_KEY`: Your AWS Secret Access Key.
 - `AWS_REGION`: Your AWS region.
+- `AWS_BUCKET_NAME`: Your AWS bucket name.
 - `GCP_KEY`: Your GCP service account key in JSON format.
 - `GCP_PROJECT_ID`: Your GCP Project ID.
+- `GCP_BUCKET_NAME`: Your GCP bucket name.
 
 ## Command to Execute
 
