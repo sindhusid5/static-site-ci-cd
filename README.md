@@ -35,6 +35,7 @@ To securely use sensitive information like AWS and GCP credentials, add the foll
 
 - `SINDHU_AWS_ACCESS_KEY_ID`: Your AWS Access Key ID.
 - `SINDHU_AWS_SECRET_KEY`: Your AWS Secret Access Key.
+- `AWS_REGION`: Your AWS region.
 - `GCP_KEY`: Your GCP service account key in JSON format.
 - `GCP_PROJECT_ID`: Your GCP Project ID.
 
