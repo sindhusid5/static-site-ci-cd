@@ -19,7 +19,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd samples/counter-app
-          npm install
+          npm i 
 
       - name: Lint
         run: |
