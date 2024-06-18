@@ -2,8 +2,7 @@ name: Lint and Test
 
 on:
   pull_request:
-    branches:
-      - development
+  
 
 jobs:
   lint-and-test:
