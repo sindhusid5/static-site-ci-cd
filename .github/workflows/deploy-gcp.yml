@@ -63,9 +63,9 @@ jobs:
 
       - name: Deploy to GCP
         run: |
-          gsutil -m rsync -r samples/counter-app/build gs://<your-gcp-bucket-name>
-          gsutil iam ch allUsers:objectViewer gs://<your-gcp-bucket-name>
-
+          gsutil -m rsync -r samples/counter-app/build gs://sidz-deepu 
+          gsutil iam ch allUsers:objectViewer gs://sidz-deepu
+          
 
 
 
