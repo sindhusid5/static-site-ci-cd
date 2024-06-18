@@ -11,23 +11,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout the repository
       - uses: actions/checkout@v2
 
+      # Step 2: Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "16.14.0"
 
+      # Step 3: Install dependencies
       - name: Install dependencies
         run: |
           cd samples/counter-app
           npm install
 
+      # Step 4: Build the project
       - name: Build
         run: |
           cd samples/counter-app
           npm run build
 
+      # Step 5: Upload build artifacts
       - name: Upload build artifacts
         uses: actions/upload-artifact@v2
         with:
@@ -40,14 +45,17 @@ jobs:
     needs: build
 
     steps:
+      # Step 1: Checkout the repository
       - uses: actions/checkout@v2
 
+      # Step 2: Download build artifacts
       - name: Download build artifacts
         uses: actions/download-artifact@v2
         with:
           name: build
           path: samples/counter-app/build/
 
+      # Step 3: Configure AWS credentials
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -55,22 +63,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
+      # Step 4: Deploy to S3
       - name: Deploy to S3
         run: |
           aws s3 sync samples/counter-app/build/ s3://${{ secrets.AWS_BUCKET_NAME }} --delete
           aws s3 website s3://${{ secrets.AWS_BUCKET_NAME }} --index-document index.html
-       
-
-
-
-
-
-
-
-
-
-
-
-
-
-
