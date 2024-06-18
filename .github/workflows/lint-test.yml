@@ -1,0 +1,34 @@
+name: Lint and Test
+
+on:
+  pull_request:
+ 
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.14.0
+
+      - name: Install dependencies
+        run: |
+          cd samples/counter-app
+          npm install
+
+      - name: Lint
+        run: |
+          cd samples/counter-app
+          npm run lint
+
+      - name: Run tests
+        run: |
+          cd samples/counter-app
+          npm run test 
+
+
